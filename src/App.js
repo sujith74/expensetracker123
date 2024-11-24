@@ -7,9 +7,9 @@ import { FaLongArrowAltLeft } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { RiNumber1 } from "react-icons/ri";
 import { PiPizzaLight } from "react-icons/pi";
-// import Chart from "./chart";
+import Chart from "./chart";
 // import BarChart from './barchart';
-// import './Modal';
+import './Modal';
 // import  Chart from './chart'
 function App() {
 
@@ -242,12 +242,12 @@ const updateCategoryData = (oldExpense, newExpense, isNew) => {
 
 
           </div>
-          {/* <div className="chart"><Chart 
+          <div className="chart"><Chart 
           data={[
             { name: "Food", value: categorySpends.food },
             { name: "Entertainment", value: categorySpends.entertainment },
             { name: "Travel", value: categorySpends.travel },
-          ]}/></div> */}
+          ]}/></div>
           </div>
 
           <dialog className='add-expenses-popup '>
