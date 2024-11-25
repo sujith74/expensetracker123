@@ -8,8 +8,15 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { RiNumber1 } from "react-icons/ri";
 import { PiPizzaLight } from "react-icons/pi";
 import Chart from "./chart";
+import Card from './Card/Card'
+import AddBalanceForm from './Forms/AddBalanceForm/AddBalanceForm';
+import ExpenseForm from './Forms/ExpenseForm/ExpenseForm';
+import Modal from './Modal/Modal';  
+import TransactionList from './TransactionList/TransactionList'
+import BarChart from './BarChart/BarChart'
+
 // import BarChart from './barchart';
-import './Modal';
+// import './Modal';
 // import  Chart from './chart'
 function App() {
 
@@ -232,16 +239,30 @@ const updateCategoryData = (oldExpense, newExpense, isNew) => {
       <section className="box">
         <h1 className="box-title">Expense Tracker</h1>
         <div className="s1">
-          <div className="Balance-section">
-            <h1 className="Balance">Wallet Balance:  <span className='balance-no'>{balance}</span></h1>
-            <button className="Add-income"> + Add Income</button>
-          </div>
-          <div className="Expense-section">
-          <h1 className="Expense">Expenses: <span className='expense-no'>{expense}</span></h1>
-          <button className="Add-Expense"> + Add Expense</button>
+        <Card
+          title="Wallet Balance"
+          money={balance}
+          buttonText="+ Add Income"
+          buttonType="success"
+          handleClick={() => {
+            console.log('true')
+            setIsOpenBalance(true);
+          }}
+        />
 
+        <Card
+          title="Expenses"
+          money={expense}
+          buttonText="+ Add Expense"
+          buttonType="failure"
+          success={false}
+          handleClick={() => {
+            console.log('true')
+            setIsOpenExpense(true);
+          }}
+        />
 
-          </div>
+          
           <div className="chart"><Chart 
           data={[
             { name: "Food", value: categorySpends.food },
@@ -279,43 +300,28 @@ const updateCategoryData = (oldExpense, newExpense, isNew) => {
       </dialog>
       
 <section>
-  <header className='head'>
+<header className='head'>
       <h1 className="transactions">Recent Transactions </h1>
       <h1 className='top-expenses'>Top Expenses</h1>
       </header>
       <div className='display-data'>
-      <div className="transactions-section">
-      {expenses.map((expense, index) => (
-        <div className="content" key={index}>
-          <div className="react-icon"><PiPizzaLight /></div>
-          <div className="name">
-            <h1 className="title-transactions">{expense.title}</h1>
-            <p className="Date">{new Date(expense.date).toLocaleDateString()}</p>
-          </div>
-          <p className="amount">₹{expense.price}</p>
-          <button className="cross-button"><RxCrossCircled className="cross" /></button>
-          <button className="pencil-button" onClick={() => {
-    setEditIndex(index); 
-    setFormData(expenses[index]); 
-  }}><SlPencil className="pencil" /></button>
-        </div>
-      ))}
-<div className='pagination-top'>
- <div className='pagination'>
- <button><FaLongArrowAltLeft /></button>
- <button><RiNumber1 /></button>
- <button><FaLongArrowAltRight /></button>
- </div>
- </div>
- </div>
+      <div className='transactionsWrapper'>
+        <TransactionList
+          transactions={expenseList}
+          editTransactions={setExpenseList}
+          title="Recent Transactions"
+          balance={balance}
+          setBalance={setBalance}
+        />
+</div>
       
       <div className="top-expenses-section">
-       {/* <BarChart
+       <BarChart
           data={[
             { name: "Food", value: categorySpends.food },
             { name: "Entertainment", value: categorySpends.entertainment },
             { name: "Travel", value: categorySpends.travel },
-          ]}/>  */}
+          ]}/> 
     
 
       </div>
@@ -323,7 +329,21 @@ const updateCategoryData = (oldExpense, newExpense, isNew) => {
       
       </section>
 
-      
+      <Modal isOpen={isOpenExpense} setIsOpen={setIsOpenExpense}>
+        <ExpenseForm
+          setIsOpen={setIsOpenExpense}
+          expenseList={expenseList}
+          setExpenseList={setExpenseList}
+          setBalance={setBalance}
+          balance={balance}
+        />
+      </Modal>
+
+      <Modal isOpen={isOpenBalance} setIsOpen={setIsOpenBalance}>
+        <AddBalanceForm setIsOpen={setIsOpenBalance} setBalance={setBalance} />
+      </Modal>      
+
+
 
       <dialog className='add-balance-popup'>
         <h1 className='title-balance'>Add balance</h1>

@@ -8,17 +8,17 @@ const addincome = document.querySelector('.Add-income')
 const modaledit = document.querySelector('.edit-popup')
 const editexpenses = document.querySelector('.pencil-button')
 
-addexpense.addEventListener('click', () => {
-    modal.showModal()
-})
+// addexpense.addEventListener('click', () => {
+//     modal.showModal()
+// })
 
-addincome.addEventListener('click', () => {
-    modalbalance.showModal()
-})
+// addincome.addEventListener('click', () => {
+//     modalbalance.showModal()
+// })
 
-editexpenses.addEventListener('click', () =>{
-    modaledit.showModal()
-    })
+// editexpenses.addEventListener('click', () =>{
+//     modaledit.showModal()
+//     })
 
 // cancelexpense.addEventListener('click', () => {
 //     modal.close()
